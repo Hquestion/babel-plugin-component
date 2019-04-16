@@ -40,6 +40,7 @@ module.exports = function core(defaultLibraryName) {
           styleLibrary,
           root = '',
           camel2Dash = true,
+          styleCustomize = false, // 自定义方式引用css，不默认引入，可用于样式定制
         } = options;
         let styleLibraryName = options.styleLibraryName;
         let _root = root;
@@ -64,6 +65,9 @@ module.exports = function core(defaultLibraryName) {
         const _path = path;
 
         selectedMethods[methodName] = addDefault(file.path, path, { nameHint: methodName });
+        if (styleCustomize) {
+          return selectedMethods[methodName];
+        }
         if (styleLibrary && typeof styleLibrary === 'object') {
           styleLibraryName = styleLibrary.name;
           isBaseStyle = styleLibrary.base;
